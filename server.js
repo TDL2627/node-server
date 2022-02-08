@@ -1,13 +1,33 @@
 const http = require('http');
 
 const server = http.createServer(function(req, res){
-res.setHeader("Content-type", "application/json");
-res.setHeader("Access-Control-Allow-Origin","*");
-res.writeHead(200);
+    if (req.url == '/') { //check the URL of the current request
+        
+        // set response header
+        res.writeHead(200, { 'Content-Type': 'text/html' }); 
+        
+        // set response content    
+        res.write('<html><body><p>This is home Page.</p></body></html>');
+        res.end();
+    
+    }
+    else if (req.url == "/student") {
+        
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write('<html><body><p>This is student Page.</p></body></html>');
+        res.end();
+    
+    }
+    else if (req.url == "/admin") {
+        
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write('<html><body><p>This is admin Page.</p></body></html>');
+        res.end();
+    
+    }
+    else
+        res.end('Invalid Request!');
 
-let dataObj = {id:26 ,name : "TDL", email:"tdl2627@gmail.com"};
-let data = JSON.stringify(dataObj);
-res.end(data);
 
 });
 server.listen(2627, function(){
